@@ -42,7 +42,7 @@ const observer = new IntersectionObserver((entries) => {
 function highlightNav() {
   const currentCategory = window.CURRENT_PAGE_CATEGORY || 'index';
   const navLinks = document.querySelectorAll('nav a');
-  
+
   navLinks.forEach(link => {
     const href = link.getAttribute('href');
     if (href === 'index.html' && currentCategory === 'index') {
@@ -96,7 +96,7 @@ async function loadItems() {
 
       // Filtering Logic
       if (window.CURRENT_PAGE_CATEGORY) {
-        if (window.CURRENT_PAGE_CATEGORY === 'latest') {
+        if (window.CURRENT_PAGE_CATEGORY === 'latest' || window.CURRENT_PAGE_CATEGORY === 'index') {
           if (!item.isLatestDrop || itemsShown >= 10) return;
         } else if (window.CURRENT_PAGE_CATEGORY === 'collection') {
           // show all
@@ -435,7 +435,7 @@ async function addNewItem() {
       // If we're editing an existing item that is ALREADY latest drop, don't count it towards the displacement
       let currentLatestCount = latestSnapshot.size;
       const editingLatestItem = activeEditId && latestSnapshot.docs.some(doc => doc.id === activeEditId);
-      
+
       if (!editingLatestItem && currentLatestCount >= 10) {
         // Remove oldest
         const oldestDoc = latestSnapshot.docs[0];
