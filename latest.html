@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MNM THRIFTSHOP · Latest Drop</title>
+  <meta name="description" content="The newest additions to the MNM THRIFTSHOP archive. Limited items, maximum 10 pieces.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>window.CURRENT_PAGE_CATEGORY = 'latest';</script>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-top">
+      <a href="index.html" class="logo">M<span>&amp;</span>M</a>
+      <div class="nav-container">
+        <button class="nav-arrow" onclick="scrollNav(-1)">&lt;</button>
+        <nav id="global-nav">
+          <a href="index.html">Home</a>
+          <a href="collection.html">Collection</a>
+          <a href="latest.html">Latest Drop</a>
+          <a href="shorts.html">Shorts</a>
+          <a href="pants.html">Pants</a>
+          <a href="t-shirts.html">T-shirts</a>
+          <a href="hats.html">Hats</a>
+          <a href="shirts.html">Shirts</a>
+          <a href="jackets.html">Jackets</a>
+          <a href="shoes.html">Shoes</a>
+          <a href="sweaters.html">Sweaters</a>
+        </nav>
+        <button class="nav-arrow" onclick="scrollNav(1)">&gt;</button>
+      </div>
+    </div>
+    <div class="marquee-bar">
+      <div class="marquee-inner">
+        <span>Carhartt</span><span>·</span><span>Timberland</span><span>·</span><span>Harley-Davidson</span><span>·</span><span>Stüssy</span><span>·</span><span>Vintage Denim</span><span>·</span><span>Workwear</span><span>·</span><span>Mnm Thriftshop</span><span>·</span>
+        <span>Carhartt</span><span>·</span><span>Timberland</span><span>·</span><span>Harley-Davidson</span><span>·</span><span>Stüssy</span><span>·</span><span>Vintage Denim</span><span>·</span><span>Workwear</span><span>·</span><span>Mnm Thriftshop</span><span>·</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="products" id="products" style="padding-top: 200px;">
+    <div class="section-header reveal active">
+      <div class="section-title">Latest Drop</div>
+      <div class="section-sub">Digital Archive · New Arrivals</div>
+    </div>
+
+    <div id="archive-grid" class="product-grid">
+      <!-- Firestore Products Inject Here -->
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-column">
+        <div class="footer-logo">M<span>&amp;</span>M <span style="font-size:0.7em; opacity:0.7; letter-spacing:0.15em;">THRIFTSHOP</span></div>
+        <p class="footer-brand-statement">Curating the finest vintage workwear and streetwear artifacts for the modern observer.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Archive</h4>
+        <ul>
+          <li><a href="collection.html">All Pieces</a></li>
+          <li><a href="latest.html">Latest Drop</a></li>
+          <li><a href="shorts.html">Shorts</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 MNM THRIFTSHOP. PIXI CORE TECH.</p>
+    </div>
+  </footer>
+
+  <button class="admin-trigger" id="admin-login-btn">Staff Login</button>
+
+  <div id="admin-panel">
+    <span class="close-admin" onclick="toggleAdminPanel()">&times;</span>
+    <div id="auth-section">
+      <h2>Staff Access</h2>
+      <input type="email" id="admin-email" placeholder="Staff Email">
+      <input type="password" id="admin-pass" placeholder="Security Key">
+      <button onclick="loginAdmin()">AUTHENTICATE</button>
+    </div>
+    <div id="add-item-section" style="display: none;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <h3 style="margin:0;">Staff Control Panel</h3>
+        <button onclick="logoutAdmin()" style="width: auto; margin:0; font-size: 0.6rem; padding: 6px 12px; border: 1px solid #444; background: transparent; color: #888; font-weight: 700;">
+          LOGOUT
+        </button>
+      </div>
+      <p style="font-size: 0.7rem; color: #888; margin-bottom: 1rem;">Admin dashboard for the MNM Archive.</p>
+
+      <input type="text" id="item-name" placeholder="Piece Name">
+      <input type="text" id="item-brand" placeholder="Brand">
+      <select id="item-category" style="margin-bottom: 1rem;">
+        <option value="">Select Category</option>
+        <option value="shorts">Shorts</option>
+        <option value="pants">Pants</option>
+        <option value="t-shirts">T-shirts</option>
+        <option value="hats">Hats</option>
+        <option value="shirts">Shirts</option>
+        <option value="jackets">Jackets</option>
+        <option value="shoes">Shoes</option>
+        <option value="sweaters">Sweaters</option>
+        <option value="outerwear">Outerwear</option>
+        <option value="accessories">Accessories</option>
+      </select>
+      <input type="text" id="item-price" placeholder="Price">
+      <select id="item-status">
+        <option value="available">Available</option>
+        <option value="sold">Sold</option>
+      </select>
+      <input type="file" id="item-img" accept="image/*" multiple onchange="previewImages()">
+      <div id="image-preview-container" class="preview-strip"></div>
+      <input type="text" id="item-url" placeholder="Alternatively, paste image URL">
+      
+      <div style="margin: 1rem 0; display: flex; align-items: center; gap: 0.6rem;">
+        <input type="checkbox" id="item-featured">
+        <label for="item-featured" style="font-size: 0.75rem;">Featured</label>
+        <input type="checkbox" id="item-latest">
+        <label for="item-latest" style="font-size: 0.75rem;">Latest Drop</label>
+      </div>
+
+      <button id="imgbb-upload-btn" onclick="uploadAndActivate()">SAVE TO ARCHIVE</button>
+      <p id="status-msg" style="margin-top: 1rem; font-size: 0.7rem; color: var(--accent); text-align: center;"></p>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
