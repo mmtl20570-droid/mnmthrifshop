@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MNM Thriftshop – Final</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --rust: #ff2e2e;
+  --gold: #b8860b;
+  --cream: #f0e6d3;
+  --brown: #1a0f00;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background:#000;
+  color:#fff;
+  font-family: 'Courier New', monospace;
+}
+
+/* NAV */
+nav {
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:1rem 2rem;
+  background:rgba(0,0,0,0.85);
+  border-bottom:2px solid #ff2e2e;
+  z-index:200;
+  backdrop-filter: blur(6px);
+}
+
+.nav-left {
+  display:flex;
+  align-items:center;
+  gap:1rem;
+}
+
+.logo-img {
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  border:2px solid #ff2e2e;
+}
+
+.search-bar {
+  background:#111;
+  border:1px solid #ff2e2e;
+  color:#fff;
+  padding:0.5rem 1rem;
+  outline:none;
+}
+
+.menu-toggle {
+  font-size:2rem;
+  cursor:pointer;
+  color:#fff;
+}
+
+/* MENU PANEL */
+.menu-panel {
+  position:fixed;
+  right:-100%;
+  top:0;
+  width:260px;
+  height:100vh;
+  background:#000;
+  border-left:2px solid #ff2e2e;
+  display:flex;
+  flex-direction:column;
+  padding:6rem 2rem;
+  gap:1.5rem;
+  transition:0.4s;
+  z-index:300;
+}
+
+.menu-panel.active { right:0; }
+
+.menu-panel a {
+  color:#fff;
+  text-decoration:none;
+  font-family:'Bebas Neue';
+  font-size:1.4rem;
+}
+
+.menu-panel a:hover { color:#ff2e2e; }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 30% 40%, #2a1500 0%, #100800 55%, #000 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 4rem;
+  overflow: hidden;
+}
+
+/* subtle dot-grid texture */
+.hero::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image: radial-gradient(circle, rgba(184,134,11,0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events:none;
+}
+
+/* top tag line */
+.hero-tag {
+  position:absolute;
+  top: 90px;
+  left: 4rem;
+  font-size:0.75rem;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform:uppercase;
+}
+
+.hero-tag span { color: var(--cream); opacity:0.5; margin: 0 0.5rem; }
+
+/* left content */
+.hero-content {
+  flex: 1;
+  max-width: 560px;
+  z-index:1;
+}
+
+.hero-headline {
+  line-height: 0.9;
+  margin-bottom: 1.5rem;
+}
+
+.hero-headline .line-bold {
+  font-family:'Bebas Neue';
+  font-size: clamp(5rem, 8vw, 8rem);
+  color: var(--cream);
+  display:block;
+  letter-spacing:0.02em;
+}
+
+.hero-headline .line-italic {
+  font-family:'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(4rem, 7vw, 7rem);
+  color: var(--gold);
+  display:block;
+  line-height:1.05;
+}
+
+.hero-sub {
+  font-size:0.85rem;
+  line-height:1.7;
+  color: rgba(240,230,211,0.65);
+  max-width: 320px;
+  margin-bottom: 2.5rem;
+}
+
+.hero-btn {
+  display:inline-block;
+  padding:1rem 2rem;
+  background: var(--gold);
+  color:#fff;
+  font-family:'Courier New', monospace;
+  font-size:0.75rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  text-decoration:none;
+  border:none;
+  cursor:pointer;
+  transition: background 0.25s, transform 0.2s;
+}
+
+.hero-btn:hover {
+  background: #d4a017;
+  transform: translateY(-2px);
+}
+
+/* right stats */
+.hero-stats {
+  position:absolute;
+  right: 4rem;
+  bottom: 12%;
+  display:flex;
+  flex-direction:column;
+  gap:2rem;
+  text-align:right;
+  z-index:1;
+}
+
+.stat-num {
+  font-family:'Bebas Neue';
+  font-size: 2.8rem;
+  color: var(--cream);
+  line-height:1;
+}
+
+.stat-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: rgba(240,230,211,0.4);
+  text-transform:uppercase;
+}
+
+/* ── RARE DROPS ── */
+.rare-drops {
+  padding: 80px 2rem;
+  background: #000;
+}
+
+.rare-title {
+  font-family:'Bebas Neue';
+  font-size:4rem;
+  text-align:center;
+  margin-bottom:2rem;
+  color:#fff;
+}
+
+.rare-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1rem;
+}
+
+.rare-item {
+  height:200px;
+  border:2px dashed #ff2e2e;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Bebas Neue';
+  font-size:1.2rem;
+  color: rgba(255,255,255,0.4);
+  transition: border-color 0.25s, color 0.25s;
+}
+
+.rare-item:hover {
+  border-color:#fff;
+  color:#fff;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <img src="https://via.placeholder.com/100" class="logo-img">
+    <input type="text" class="search-bar" placeholder="Search for products">
+  </div>
+  <div class="menu-toggle" id="menuToggle">☰</div>
+</nav>
+
+<!-- MENU PANEL -->
+<div class="menu-panel" id="menuPanel">
+  <a href="#">Shorts</a>
+  <a href="#">Pants</a>
+  <a href="#">T-shirts</a>
+  <a href="#">Hats</a>
+  <a href="#">Shirts</a>
+  <a href="#">Jackets</a>
+  <a href="#">Hoodies / Sweaters</a>
+  <a href="#">Shoes</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+
+  <p class="hero-tag">
+    — Vintage <span>·</span> Thrift <span>·</span> Streetwear <span>·</span> Tunisia
+  </p>
+
+  <div class="hero-content">
+    <div class="hero-headline">
+      <span class="line-bold">CURATED</span>
+      <span class="line-italic">vintage</span>
+      <span class="line-bold">PIECES</span>
+    </div>
+    <p class="hero-sub">
+      Hand-picked vintage and thrifted items.<br>
+      Carhartt, Timberland, Harley-Davidson and<br>
+      more. Each piece tells a story.
+    </p>
+    <a href="#" class="hero-btn">Browse Collection</a>
+  </div>
+
+  <!-- Stats -->
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">70K+</div>
+      <div class="stat-label">Reach Per Post</div>
+    </div>
+    <div>
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Authentic Vintage</div>
+    </div>
+    <div>
+      <div class="stat-num">TN</div>
+      <div class="stat-label">Based in Tunisia</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- RARE DROPS -->
+<section class="rare-drops">
+  <h1 class="rare-title">RARE DROPS</h1>
+  <div class="rare-grid">
+    <div class="rare-item">DROP 01</div>
+    <div class="rare-item">DROP 02</div>
+    <div class="rare-item">DROP 03</div>
+  </div>
+</section>
+
+<script>
+const toggle = document.getElementById("menuToggle");
+const panel  = document.getElementById("menuPanel");
+toggle.onclick = () => panel.classList.toggle("active");
+</script>
+
+</body>
+</html>

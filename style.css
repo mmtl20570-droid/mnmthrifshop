@@ -586,13 +586,13 @@ h3 {
   width: 100%;
   aspect-ratio: 4/5;
   object-fit: cover;
-  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
   background: #151515;
   border-radius: 8px;
 }
 
 .product-card:hover .product-img {
-  transform: scale(1.03);
+  transform: scale(1.05);
 }
 
 .product-info {
@@ -1052,4 +1052,17 @@ footer {
 
 .status-active {
   animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* Hover Image Effect */
+.product-img-container.has-hover-img:hover .primary-img {
+  opacity: 0 !important;
+}
+
+.product-img-container.has-hover-img:hover .hover-img {
+  opacity: 1 !important;
+}
+
+.product-img-container:not(.has-hover-img):hover .primary-img {
+  opacity: 0.8 !important;
 }

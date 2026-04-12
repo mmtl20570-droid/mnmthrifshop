@@ -107,16 +107,19 @@ async function loadItems() {
       itemsShown++;
 
       const mainImg = (item.imageUrls && item.imageUrls.length > 0) ? item.imageUrls[0] : (item.imageUrl || '');
+      const hoverImg = (item.imageUrls && item.imageUrls.length > 1) ? item.imageUrls[1] : null;
+      const hoverClass = hoverImg ? 'has-hover-img' : '';
 
       const cardHtml = `
       <div class="product-card reveal" style="position:relative;">
         <button class="admin-edit-btn" onclick="openEditMode('${doc.id}', event)">✎</button>
         <button class="admin-delete-btn" onclick="deleteItem('${doc.id}', event)">×</button>
         <a href="product.html?id=${doc.id}" style="text-decoration:none; color:inherit; display:flex; flex-direction:column;">
-          <div class="product-img-container" style="background: #151515; aspect-ratio: 4/5; border-radius: 8px; overflow: hidden; position: relative;">
-            <img class="product-img" src="${mainImg}" alt="${item.name}" 
+          <div class="product-img-container ${hoverClass}" style="background: #151515; aspect-ratio: 4/5; border-radius: 8px; overflow: hidden; position: relative;">
+            <img class="product-img primary-img" src="${mainImg}" alt="${item.name}" 
                  onerror="this.style.display='none'; this.parentElement.querySelector('.img-error').style.display='flex';"
                  style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            ${hoverImg ? `<img class="product-img hover-img" src="${hoverImg}" alt="${item.name} back" style="position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none;">` : ''}
             <div class="img-error" style="display: none; position: absolute; inset: 0; align-items: center; justify-content: center; color: #444; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em;">Image Not Found</div>
           </div>
           <div class="product-info" style="padding: 1rem 0;">
