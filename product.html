@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Inquiry - MNM Thriftshop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="product.css">
+</head>
+<body>
+
+  <header>
+    <div class="header-top">
+      <div class="logo">M<span>&amp;</span>M</div>
+      <nav id="global-nav">
+        <button class="nav-arrow" onclick="scrollNav(-1)">&lt;</button>
+        <a href="index.html">Home</a>
+        <a href="latest.html">Latest Drop</a>
+        <a href="shorts.html">Shorts</a>
+        <a href="pants.html">Pants</a>
+        <a href="t-shirts.html">T-shirts</a>
+        <a href="hats.html">Hats</a>
+        <a href="shirts.html">Shirts</a>
+        <a href="jackets.html">Jackets</a>
+        <a href="shoes.html">Shoes</a>
+        <a href="sweaters.html">Sweaters</a>
+          <a href="hoodies.html">Hoodies</a>
+        <a href="outerwear.html">Outerwear</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="collection.html">Collection</a>
+        <button class="nav-arrow" onclick="scrollNav(1)">&gt;</button>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Search is simplified on product pages -->
+        <a href="index.html" style="color: var(--gray); text-decoration: none; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;">BACK TO ARCHIVE</a>
+      </div>
+    </div>
+  </header>
+
+<main>
+  <a href="index.html" class="back-link">
+
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    Back to Archive
+  </a>
+
+  <div class="product-container" id="product-page-content">
+    <div class="product-visual reveal" id="gallery-root">
+       <div id="image-placeholder" style="width:100%; aspect-ratio:3/4; background:#111; animation:pulse 2s infinite;"></div>
+       <button class="gallery-arrow arrow-left" onclick="scrollGallery(-1)" id="prev-arrow" style="display:none;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+       </button>
+       <div id="gallery-images"></div>
+       <button class="gallery-arrow arrow-right" onclick="scrollGallery(1)" id="next-arrow" style="display:none;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+       </button>
+       <div id="image-counter" class="gallery-counter" style="display:none;">1 / 1</div>
+    </div>
+    
+    <div class="product-details reveal">
+      <div id="brand-name" class="item-brand">Loading...</div>
+      <h1 id="product-name" class="item-name">----</h1>
+      <div id="product-price" class="item-price">----</div>
+      <div id="product-size" class="item-size"></div>
+      
+
+      
+      <div class="action-buttons">
+        <button onclick="sendViaInstagram()" class="btn btn-primary">DM INSTAGRAM</button>
+        <button id="btn-reveal-form" onclick="toggleForm()" class="btn btn-secondary">DIRECT PURCHASE</button>
+      </div>
+      <p style="font-size: 0.7rem; color: #555; margin-top: -0.5rem; text-align: center;">* Clicking IG will copy item info to clipboard.</p>
+
+      <div id="inquiry-container" style="display: none; margin-top: 2rem;">
+        <div class="inquiry-form">
+          <div class="form-title">Enter Your Details</div>
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="cust-name" placeholder="Enter your name">
+          </div>
+          <div class="form-group">
+            <label>City / Location</label>
+            <select id="cust-location">
+              <option value="" disabled selected>Select your city</option>
+              <option value="Tunis">Tunis</option>
+              <option value="Sfax">Sfax</option>
+              <option value="Sousse">Sousse</option>
+              <option value="Kairouan">Kairouan</option>
+              <option value="Bizerte">Bizerte</option>
+              <option value="Gabès">Gabès</option>
+              <option value="Ariana">Ariana</option>
+              <option value="Gafsa">Gafsa</option>
+              <option value="Monastir">Monastir</option>
+              <option value="Ben Arous">Ben Arous</option>
+              <option value="Kasserine">Kasserine</option>
+              <option value="Médenine">Médenine</option>
+              <option value="Nabeul">Nabeul</option>
+              <option value="Tataouine">Tataouine</option>
+              <option value="Béja">Béja</option>
+              <option value="Jendouba">Jendouba</option>
+              <option value="El Kef">El Kef</option>
+              <option value="Mahdia">Mahdia</option>
+              <option value="Sidi Bouzid">Sidi Bouzid</option>
+              <option value="Tozeur">Tozeur</option>
+              <option value="Siliana">Siliana</option>
+              <option value="Zaghouan">Zaghouan</option>
+              <option value="Kebili">Kebili</option>
+              <option value="Manouba">Manouba</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="text" id="cust-phone" placeholder="+216 98 632 010">
+            <div id="phone-error" style="display: none; color: #ff4444; font-size: 0.7rem; margin-top: 5px;">* Please enter exactly 8 digits.</div>
+          </div>
+
+          <button id="btn-submit-email" onclick="sendViaEmail()" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">SEND PURCHASE INQUIRY</button>
+          
+          <div id="success-msg" style="display: none; margin-top: 1.5rem; color: #00ffaa; font-family: 'Inter', sans-serif; font-size: 0.9rem; text-align: center; font-weight: 500;">
+            We will call you as soon as possible.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="copy-toast">Inquiry details copied!</div>
+
+<footer>
+  <p>&copy; 2026 MNM THRIFTSHOP. ALL RIGHTS RESERVED.</p>
+</footer>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="product-script.js"></script>
+
+</body>
+</html>
+
+</body>
+</html>

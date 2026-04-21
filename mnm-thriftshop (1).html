@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MNM Thriftshop – Vintage & Secondhand Fashion</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0f0e0d;
+    --cream: #f5f0e8;
+    --warm: #e8ddd0;
+    --rust: #c4571a;
+    --sand: #d4a574;
+    --olive: #6b6b4a;
+    --text: #2a2420;
+    --muted: #8a7c72;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    mix-blend-mode: normal;
+    background: rgba(245,240,232,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    transition: background 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.12em;
+    color: var(--black);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--rust); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1px;
+    background: var(--rust);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--rust); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-right {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+  }
+
+  .nav-icon {
+    width: 20px; height: 20px;
+    cursor: pointer;
+    color: var(--text);
+    transition: color 0.2s;
+  }
+  .nav-icon:hover { color: var(--rust); }
+
+  .cart-btn {
+    background: var(--black);
+    color: var(--cream);
+    border: none;
+    padding: 0.55rem 1.4rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .cart-btn:hover { background: var(--rust); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 4rem 4rem;
+    position: relative;
+  }
+
+  .hero-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 9vw, 9rem);
+    line-height: 0.92;
+    color: var(--black);
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-title em {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: var(--rust);
+    font-size: 0.75em;
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 380px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background: var(--black);
+    color: var(--cream);
+    padding: 1rem 2.5rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    border: none;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--rust); transform: translateY(-2px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    padding: 1rem 2rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    border: 1.5px solid var(--text);
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--rust); color: var(--rust); }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-img-wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: var(--warm);
+  }
+
+  .hero-img-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Decorative photo collage using CSS */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 3px;
+    height: calc(100vh - 80px);
+  }
+
+  .photo-cell {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .photo-cell img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    filter: sepia(15%) contrast(105%) saturate(90%);
+  }
+
+  .photo-cell:hover img { transform: scale(1.05); }
+
+  .photo-cell:first-child { grid-row: 1 / 3; }
+
+  .hero-badge {
+    position: absolute;
+    bottom: 3rem;
+    left: -1rem;
+    background: var(--rust);
+    color: var(--cream);
+    padding: 1.5rem;
+    text-align: center;
+    z-index: 10;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .hero-badge .badge-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    display: block;
+  }
+  .hero-badge .badge-txt {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    background: var(--black);
+    overflow: hidden;
+    padding: 1.1rem 0;
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+
+  .marquee-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    color: var(--cream);
+    padding: 0 2rem;
+    opacity: 0.8;
+  }
+
+  .marquee-item.accent { color: var(--rust); opacity: 1; }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── CATEGORIES ── */
+  .section { padding: 6rem 4rem; }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    letter-spacing: 0.04em;
+    color: var(--black);
+    line-height: 1;
+  }
+
+  .see-all {
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+    padding-bottom: 0.5rem;
+  }
+  .see-all:hover { color: var(--rust); }
+  .see-all::after { content: '→'; transition: transform 0.2s; }
+  .see-all:hover::after { transform: translateX(4px); }
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .cat-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 3/4;
+    background: var(--warm);
+  }
+
+  .cat-card-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    filter: sepia(10%) contrast(108%) saturate(85%);
+  }
+
+  .cat-card:hover .cat-card-img { transform: scale(1.08); }
+
+  .cat-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15,14,13,0.85) 0%, transparent 55%);
+  }
+
+  .cat-info {
+    position: absolute;
+    bottom: 1.5rem; left: 1.5rem;
+  }
+
+  .cat-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--cream);
+    letter-spacing: 0.06em;
+    display: block;
+  }
+
+  .cat-count {
+    font-size: 0.72rem;
+    color: rgba(245,240,232,0.65);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* Placeholder img using gradient */
+  .img-placeholder {
+    width: 100%; height: 100%;
+    display: block;
+    position: relative;
+  }
+
+  .cat-card:nth-child(1) .img-placeholder { background: linear-gradient(135deg, #c4a882 0%, #8b6e52 100%); }
+  .cat-card:nth-child(2) .img-placeholder { background: linear-gradient(135deg, #9a8b7a 0%, #6b5c4f 100%); }
+  .cat-card:nth-child(3) .img-placeholder { background: linear-gradient(135deg, #b8a898 0%, #7a6b5e 100%); }
+  .cat-card:nth-child(4) .img-placeholder { background: linear-gradient(135deg, #c9b8a8 0%, #8c7a6e 100%); }
+
+  /* ── PRODUCTS ── */
+  .products-section { background: var(--warm); padding: 6rem 4rem; }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .product-card {
+    background: var(--cream);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+  }
+
+  .product-img-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    background: var(--warm);
+  }
+
+  .product-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+    display: block;
+  }
+  .product-card:hover .product-img { transform: scale(1.05); }
+
+  /* Product image placeholders */
+  .p-img-1 { background: linear-gradient(160deg, #d4b896 0%, #a08060 100%); }
+  .p-img-2 { background: linear-gradient(160deg, #8fa8a0 0%, #5c7870 100%); }
+  .p-img-3 { background: linear-gradient(160deg, #c4a89c 0%, #9c7870 100%); }
+  .p-img-4 { background: linear-gradient(160deg, #b8b090 0%, #888060 100%); }
+  .p-img-5 { background: linear-gradient(160deg, #b0c4bc 0%, #7c9890 100%); }
+  .p-img-6 { background: linear-gradient(160deg, #d4c0a8 0%, #a89070 100%); }
+  .p-img-7 { background: linear-gradient(160deg, #c8a8a0 0%, #a07870 100%); }
+  .p-img-8 { background: linear-gradient(160deg, #a8b8c0 0%, #788898 100%); }
+
+  .product-tag {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    background: var(--rust);
+    color: var(--cream);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    font-weight: 500;
+  }
+
+  .product-wishlist {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: rgba(245,240,232,0.9);
+    border: none;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 50%;
+  }
+  .product-wishlist:hover { background: var(--rust); color: white; }
+  .product-wishlist svg { width: 16px; height: 16px; }
+
+  .product-info {
+    padding: 1.2rem;
+  }
+
+  .product-category {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .product-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .product-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.04em;
+    color: var(--rust);
+  }
+
+  .product-size {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    background: var(--warm);
+    padding: 0.2rem 0.6rem;
+  }
+
+  .add-to-cart {
+    width: 100%;
+    background: var(--black);
+    color: var(--cream);
+    border: none;
+    padding: 0.85rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    margin-top: 1rem;
+    transition: background 0.2s;
+  }
+  .add-to-cart:hover { background: var(--rust); }
+
+  /* ── HOW IT WORKS ── */
+  .how-section { padding: 6rem 4rem; }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+
+  .step {
+    position: relative;
+    padding: 2.5rem;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: var(--cream);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .step:hover { border-color: var(--rust); transform: translateY(-4px); }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    color: var(--warm);
+    line-height: 1;
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+    pointer-events: none;
+    transition: color 0.3s;
+  }
+  .step:hover .step-num { color: rgba(196,87,26,0.15); }
+
+  .step-icon {
+    width: 48px; height: 48px;
+    background: var(--rust);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .step-icon svg { width: 22px; height: 22px; color: var(--cream); }
+
+  .step-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .step-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── ABOUT STRIP ── */
+  .about-strip {
+    background: var(--black);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+  }
+
+  .about-text {
+    padding: 6rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .about-text .section-label { color: var(--sand); }
+
+  .about-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4.5rem);
+    color: var(--cream);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-title em {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: var(--sand);
+  }
+
+  .about-desc {
+    font-size: 0.95rem;
+    color: rgba(245,240,232,0.65);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    max-width: 400px;
+  }
+
+  .about-stats {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--rust);
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-lbl {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+  }
+
+  .btn-light {
+    background: var(--cream);
+    color: var(--black);
+    padding: 1rem 2.5rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    border: none;
+    transition: all 0.25s;
+    display: inline-block;
+    align-self: flex-start;
+  }
+  .btn-light:hover { background: var(--rust); color: var(--cream); }
+
+  .about-visual {
+    position: relative;
+    background: linear-gradient(135deg, #3a3228 0%, #1a1612 100%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about-deco {
+    width: 300px; height: 300px;
+    border: 1px solid rgba(196,87,26,0.3);
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .about-deco-2 {
+    width: 200px; height: 200px;
+    border: 1px solid rgba(212,165,116,0.2);
+    border-radius: 50%;
+  }
+
+  .about-logo-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 6rem;
+    color: rgba(245,240,232,0.06);
+    letter-spacing: 0.1em;
+    position: absolute;
+    bottom: -1rem;
+    right: 1rem;
+  }
+
+  .about-quote {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--cream);
+    text-align: center;
+    padding: 2rem;
+    z-index: 1;
+    line-height: 1.6;
+  }
+
+  .about-quote span { color: var(--sand); }
+
+  /* ── INSTAGRAM ── */
+  .insta-section { padding: 6rem 4rem; }
+
+  .insta-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin-top: 2rem;
+  }
+
+  .insta-cell {
+    aspect-ratio: 1;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .insta-img {
+    width: 100%; height: 100%;
+    display: block;
+    transition: transform 0.4s;
+  }
+  .insta-cell:hover .insta-img { transform: scale(1.08); }
+
+  .insta-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(196,87,26,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .insta-cell:hover .insta-overlay { opacity: 1; }
+  .insta-overlay svg { width: 32px; height: 32px; color: white; }
+
+  .i1 { background: linear-gradient(135deg, #b8a090 0%, #806050 100%); }
+  .i2 { background: linear-gradient(135deg, #90a8a0 0%, #607870 100%); }
+  .i3 { background: linear-gradient(135deg, #c0b0a0 0%, #908070 100%); }
+  .i4 { background: linear-gradient(135deg, #a8b8b0 0%, #788880 100%); }
+  .i5 { background: linear-gradient(135deg, #b8a8c0 0%, #887898 100%); }
+
+  /* ── NEWSLETTER ── */
+  .newsletter {
+    background: var(--rust);
+    padding: 5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .nl-left {}
+
+  .nl-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    color: var(--cream);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .nl-sub { font-size: 0.9rem; color: rgba(245,240,232,0.75); }
+
+  .nl-form {
+    display: flex;
+    gap: 0;
+    flex-shrink: 0;
+  }
+
+  .nl-input {
+    background: rgba(245,240,232,0.15);
+    border: 1px solid rgba(245,240,232,0.4);
+    border-right: none;
+    color: var(--cream);
+    padding: 0.9rem 1.5rem;
+    font-size: 0.85rem;
+    font-family: 'DM Sans', sans-serif;
+    width: 320px;
+    outline: none;
+    transition: background 0.2s;
+  }
+  .nl-input::placeholder { color: rgba(245,240,232,0.5); }
+  .nl-input:focus { background: rgba(245,240,232,0.25); }
+
+  .nl-btn {
+    background: var(--black);
+    color: var(--cream);
+    border: none;
+    padding: 0.9rem 1.8rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .nl-btn:hover { background: #2a1e18; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    color: var(--cream);
+    padding: 4rem 4rem 2rem;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+    margin-bottom: 2rem;
+  }
+
+  .footer-brand .nav-logo { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
+
+  .footer-desc {
+    font-size: 0.88rem;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 260px;
+    margin-bottom: 1.5rem;
+  }
+
+  .social-links { display: flex; gap: 1rem; }
+
+  .social-btn {
+    width: 38px; height: 38px;
+    border: 1px solid rgba(245,240,232,0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(245,240,232,0.6);
+    transition: all 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .social-btn:hover { border-color: var(--rust); color: var(--rust); background: rgba(196,87,26,0.1); }
+  .social-btn svg { width: 16px; height: 16px; }
+
+  .footer-col-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cream);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+
+  .footer-links a {
+    font-size: 0.85rem;
+    color: rgba(245,240,232,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-weight: 300;
+  }
+  .footer-links a:hover { color: var(--sand); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: rgba(245,240,232,0.3);
+  }
+
+  /* ── MOBILE HAMBURGER ── */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: all 0.3s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { gap: 1.5rem; }
+    .section, .products-section, .how-section, .insta-section { padding: 4rem 2rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 60vw; }
+    .photo-grid { height: 100%; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-strip { grid-template-columns: 1fr; }
+    .about-visual { height: 350px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .newsletter { flex-direction: column; padding: 4rem 2rem; }
+    .nl-input { width: 100%; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links, .nav-right { display: none; }
+    .hamburger { display: flex; }
+    .hero { padding-top: 70px; }
+    .hero-left { padding: 3rem 1.5rem; }
+    .hero-right { height: 80vw; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+    .products-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .insta-grid { grid-template-columns: repeat(3, 1fr); }
+    .footer-top { grid-template-columns: 1fr; }
+    .about-text { padding: 3rem 2rem; }
+    .about-stats { gap: 2rem; }
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">MNM<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#categories">Categories</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    <button class="cart-btn">Cart (0)</button>
+  </div>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">New Collection — 2025</p>
+    <h1 class="hero-title">
+      Find Your<br>
+      <em>Vintage</em>
+      Story
+    </h1>
+    <p class="hero-sub">Handpicked secondhand & vintage pieces. Unique, sustainable, and always one-of-a-kind. Based in Tunisia.</p>
+    <div class="hero-actions">
+      <a href="#shop" class="btn-primary">Shop Now</a>
+      <a href="#about" class="btn-ghost">Our Story</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="photo-grid">
+      <div class="photo-cell">
+        <div class="img-placeholder" style="background: linear-gradient(160deg, #b8a090 20%, #7a5840 100%); height:100%;">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0.15">
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="0.5"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="photo-cell" style="position:relative;">
+        <div class="img-placeholder" style="background: linear-gradient(160deg, #8fa8a0 20%, #4c7060 100%); height:100%;"></div>
+      </div>
+      <div class="photo-cell">
+        <div class="img-placeholder" style="background: linear-gradient(160deg, #c4a890 20%, #8a6850 100%); height:100%;"></div>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <span class="badge-num">200+</span>
+      <span class="badge-txt">New pieces<br>weekly</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">MNM THRIFTSHOP</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">VINTAGE FASHION</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">SUSTAINABLE STYLE</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">MADE IN TUNISIA</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">UNIQUE PIECES</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">SECONDHAND LUXURY</span>
+    <span class="marquee-item accent">✦</span>
+    <!-- duplicate for loop -->
+    <span class="marquee-item">MNM THRIFTSHOP</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">VINTAGE FASHION</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">SUSTAINABLE STYLE</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">MADE IN TUNISIA</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">UNIQUE PIECES</span>
+    <span class="marquee-item accent">✦</span>
+    <span class="marquee-item">SECONDHAND LUXURY</span>
+    <span class="marquee-item accent">✦</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="section" id="categories">
+  <div class="section-header reveal">
+    <div>
+      <p class="section-label">Browse by category</p>
+      <h2 class="section-title">Shop the Vibe</h2>
+    </div>
+    <a href="#" class="see-all">All Categories</a>
+  </div>
+  <div class="cat-grid reveal">
+    <div class="cat-card">
+      <div class="img-placeholder"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-info">
+        <span class="cat-name">Women</span>
+        <span class="cat-count">84 items</span>
+      </div>
+    </div>
+    <div class="cat-card">
+      <div class="img-placeholder"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-info">
+        <span class="cat-name">Men</span>
+        <span class="cat-count">61 items</span>
+      </div>
+    </div>
+    <div class="cat-card">
+      <div class="img-placeholder"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-info">
+        <span class="cat-name">Vintage</span>
+        <span class="cat-count">47 items</span>
+      </div>
+    </div>
+    <div class="cat-card">
+      <div class="img-placeholder"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-info">
+        <span class="cat-name">Accessories</span>
+        <span class="cat-count">38 items</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section" id="shop">
+  <div class="section-header reveal">
+    <div>
+      <p class="section-label">Just in</p>
+      <h2 class="section-title">New Arrivals</h2>
+    </div>
+    <a href="#" class="see-all">View All</a>
+  </div>
+  <div class="products-grid">
+
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <div class="product-img p-img-1"></div>
+        <span class="product-tag">New</span>
+        <button class="product-wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+      <div class="product-info">
+        <p class="product-category">Women — Tops</p>
+        <p class="product-name">Linen Oversized Blazer</p>
+        <div class="product-footer">
+          <span class="product-price">35 TND</span>
+          <span class="product-size">M / L</span>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <div class="product-img p-img-2"></div>
+        <span class="product-tag">Rare</span>
+        <button class="product-wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+      <div class="product-info">
+        <p class="product-category">Men — Outerwear</p>
+        <p class="product-name">90s Denim Trucker Jacket</p>
+        <div class="product-footer">
+          <span class="product-price">55 TND</span>
+          <span class="product-size">L / XL</span>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <div class="product-img p-img-3"></div>
+        <button class="product-wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+      <div class="product-info">
+        <p class="product-category">Women — Dresses</p>
+        <p class="product-name">Floral Midi Wrap Dress</p>
+        <div class="product-footer">
+          <span class="product-price">42 TND</span>
+          <span class="product-size">S / M</span>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <div class="product-img p-img-4"></div>
+        <span class="product-tag">Sale</span>
+        <button class="product-wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+      <div class="product-info">
+        <p class="product-category">Men — Bottoms</p>
+        <p class="product-name">Vintage Corduroy Trousers</p>
+        <div class="product-footer">
+          <span class="product-price">28 TND</span>
+          <span class="product-size">M</span>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <div class="product-img p-img-5"></div>
+        <button class="product-wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+      <div class="product-info">
+        <p class="product-category">Accessories</p>
+        <p class="product-name">Silk Scarf — Graphic Print</p>
+        <div class="product-footer">
+          <span class="product-price">18 TND</span>
+          <span class="product-size">One Size</span>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <div class="product-img p-img-6"></div>
+        <span class="product-tag">New</span>
+        <button class="product-wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+      <div class="product-info">
+        <p class="product-category">Women — Knitwear</p>
+        <p class="product-name">Chunky Wool Cardigan</p>
+        <div class="product-footer">
+          <span class="product-price">38 TND</span>
+          <span class="product-size">S / M / L</span>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <div class="product-img p-img-7"></div>
+        <span class="product-tag">Rare</span>
+        <button class="product-wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+      <div class="product-info">
+        <p class="product-category">Vintage — Leather</p>
+        <p class="product-name">80s Leather Biker Jacket</p>
+        <div class="product-footer">
+          <span class="product-price">95 TND</span>
+          <span class="product-size">M</span>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <div class="product-img p-img-8"></div>
+        <button class="product-wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+      <div class="product-info">
+        <p class="product-category">Men — Tops</p>
+        <p class="product-name">Washed Graphic Tee</p>
+        <div class="product-footer">
+          <span class="product-price">15 TND</span>
+          <span class="product-size">M / L / XL</span>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="section-header reveal">
+    <div>
+      <p class="section-label">Simple & easy</p>
+      <h2 class="section-title">How It Works</h2>
+    </div>
+  </div>
+  <div class="steps-grid">
+    <div class="step reveal">
+      <span class="step-num">01</span>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </div>
+      <h3 class="step-title">Browse the Drop</h3>
+      <p class="step-desc">Every week we add fresh handpicked pieces — from vintage gems to curated secondhand finds. New drops every Friday.</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">02</span>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </div>
+      <h3 class="step-title">Order Online or DM</h3>
+      <p class="step-desc">Add to cart and checkout directly, or send us a DM on Instagram to reserve your item. We make it easy.</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">03</span>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </div>
+      <h3 class="step-title">Fast Delivery</h3>
+      <p class="step-desc">We deliver across Tunisia. Choose pickup or home delivery. Your unique piece arrives wrapped with care.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<section class="about-strip" id="about">
+  <div class="about-text">
+    <p class="section-label">Our story</p>
+    <h2 class="about-title">Fashion with a<br><em>conscience</em></h2>
+    <p class="about-desc">MNM Thriftshop was born from a love of unique style and a belief that fashion shouldn't cost the earth. We handpick every single piece — selecting only what we'd wear ourselves.</p>
+    <div class="about-stats">
+      <div>
+        <span class="stat-num">500+</span>
+        <span class="stat-lbl">Happy Customers</span>
+      </div>
+      <div>
+        <span class="stat-num">200+</span>
+        <span class="stat-lbl">Weekly Pieces</span>
+      </div>
+      <div>
+        <span class="stat-num">100%</span>
+        <span class="stat-lbl">Handpicked</span>
+      </div>
+    </div>
+    <button class="btn-light">Meet the Team</button>
+  </div>
+  <div class="about-visual">
+    <div class="about-deco"></div>
+    <div class="about-deco-2"></div>
+    <p class="about-quote">
+      "Every piece has a story.<br>
+      <span>We help you write the next chapter."</span>
+    </p>
+    <div class="about-logo-big">MNM</div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="insta-section">
+  <div class="section-header reveal">
+    <div>
+      <p class="section-label">@mnmthriftshop</p>
+      <h2 class="section-title">Follow Us</h2>
+    </div>
+    <a href="#" class="see-all">Open Instagram</a>
+  </div>
+  <div class="insta-grid reveal">
+    <div class="insta-cell"><div class="insta-img i1"></div><div class="insta-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="white" stroke="none"/></svg></div></div>
+    <div class="insta-cell"><div class="insta-img i2"></div><div class="insta-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="white" stroke="none"/></svg></div></div>
+    <div class="insta-cell"><div class="insta-img i3"></div><div class="insta-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="white" stroke="none"/></svg></div></div>
+    <div class="insta-cell"><div class="insta-img i4"></div><div class="insta-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="white" stroke="none"/></svg></div></div>
+    <div class="insta-cell"><div class="insta-img i5"></div><div class="insta-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="white" stroke="none"/></svg></div></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <div class="nl-left">
+    <h3 class="nl-title">Be the first to know<br>the next drop.</h3>
+    <p class="nl-sub">New pieces weekly. No spam. Unsubscribe anytime.</p>
+  </div>
+  <div class="nl-form">
+    <input type="email" class="nl-input" placeholder="your@email.com">
+    <button class="nl-btn">Subscribe</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">MNM<span style="color:var(--rust)">.</span></a>
+      <p class="footer-desc">Handpicked vintage & secondhand fashion. Sustainable style, unique pieces, based in Tunisia.</p>
+      <div class="social-links">
+        <a href="#" class="social-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" class="social-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="#" class="social-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.41 2 2 0 0 1 3.57 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16l.27.92z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <p class="footer-col-title">Shop</p>
+      <ul class="footer-links">
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Women</a></li>
+        <li><a href="#">Men</a></li>
+        <li><a href="#">Vintage</a></li>
+        <li><a href="#">Accessories</a></li>
+        <li><a href="#">Sale</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer-col-title">Info</p>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="#">Sell to Us</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer-col-title">Help</p>
+      <ul class="footer-links">
+        <li><a href="#">Shipping & Returns</a></li>
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2025 MNM Thriftshop. All rights reserved.</span>
+    <span>Made with ♥ in Tunisia</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Cart counter
+  let count = 0;
+  const cartBtn = document.querySelector('.cart-btn');
+  document.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.addEventListener('click', () => {
+      count++;
+      cartBtn.textContent = `Cart (${count})`;
+      btn.textContent = '✓ Added';
+      btn.style.background = 'var(--olive)';
+      setTimeout(() => {
+        btn.textContent = 'Add to Cart';
+        btn.style.background = '';
+      }, 1500);
+    });
+  });
+
+  // Wishlist toggle
+  document.querySelectorAll('.product-wishlist').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const svg = btn.querySelector('svg path');
+      if (btn.dataset.liked) {
+        btn.removeAttribute('data-liked');
+        btn.style.background = '';
+        btn.style.color = '';
+      } else {
+        btn.dataset.liked = '1';
+        btn.style.background = 'var(--rust)';
+        btn.querySelector('svg').style.color = 'white';
+        btn.querySelector('svg path').setAttribute('fill', 'white');
+      }
+    });
+  });
+</script>
+</body>
+</html>
