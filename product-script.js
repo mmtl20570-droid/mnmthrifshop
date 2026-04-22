@@ -88,7 +88,25 @@ async function fetchProduct() {
 
     placeholder.style.display = 'none';
 
-    document.title = `${currentItem.name} - MNM Thriftshop`;
+    // Dynamic SEO for this product
+    const seoTitle = `${currentItem.name} — ${currentItem.brand} | MNM Thriftshop Tunisia`;
+    const seoDesc = `Buy ${currentItem.name} by ${currentItem.brand} at MNM Thriftshop Tunisia. Authentic vintage piece. DM @mnm_thriftshop on Instagram to purchase.`;
+    const seoImg = (currentItem.imageUrls && currentItem.imageUrls[0]) || currentItem.imageUrl || '';
+
+    document.title = seoTitle;
+
+    // Update or create meta description
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.name = 'description'; document.head.appendChild(metaDesc); }
+    metaDesc.content = seoDesc;
+
+    // Update OG tags dynamically
+    const ogTags = { 'og:title': seoTitle, 'og:description': seoDesc, 'og:image': seoImg, 'og:url': window.location.href };
+    Object.entries(ogTags).forEach(([prop, val]) => {
+      let tag = document.querySelector(`meta[property="${prop}"]`);
+      if (!tag) { tag = document.createElement('meta'); tag.setAttribute('property', prop); document.head.appendChild(tag); }
+      tag.content = val;
+    });
 
   } catch (err) {
     console.error("Error fetching product:", err);
